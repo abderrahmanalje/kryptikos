@@ -292,4 +292,11 @@ window.KRYPTIKOS_PUZZLES.es = [
     definicion: ['suena en la iglesia'], indicador: ['dentro de'], material: ['Pan', 'la cama'],
     explicacion: '**PAN** dentro de **CAMA**: CAM·PAN·A = **CAMPANA**, que suena en la iglesia.'
   }
+  {
+    id: 'es-040', fecha: '2026-12-17', dificultad: 'dificil',
+    pista: 'El pan con un rulo. Oigo, huelo y seco mis lagrimas',
+    respuesta: 'PAÑUELO', tipo: 'anagram',
+    definicion: ['seco mis lagrimas'], indicador: ['con un', 'Oigo'], material: ['Pan', 'huelo'],
+    explicacion: ''
+  }
 ];
