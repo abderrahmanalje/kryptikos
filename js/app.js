@@ -140,6 +140,7 @@
     document.documentElement.lang = r.lang;
     renderChrome(r);
     const app = $('#app');
+    app.dataset.view = r.view;
     if (r.view === 'archive') viewArchive(app, r.lang);
     else if (r.view === 'howto') viewHowto(app, r.lang);
     else if (r.view === 'puzzle') viewPuzzle(app, r.lang, r.id);
@@ -160,6 +161,9 @@
       b.setAttribute('aria-pressed', String(on));
     });
     $('#footer').textContent = T.footer;
+    $('#dateline').textContent = toDate(todayISO()).toLocaleDateString(T.locale, { weekday: 'long', day: 'numeric', month: 'long' });
+    $('#tagline').textContent = T.tagline;
+    themeLabel();
     document.title = `${T.titles[r.view]} · kryptikós`;
   }
 
@@ -169,7 +173,35 @@
     location.hash = href(b.dataset.lang, view);
   }));
 
+  /* ---------------- Tema claro / oscuro ---------------- */
+  // Por defecto sigue al sistema; el botón fija uno u otro y lo recuerda
+  const THEME_KEY = 'kryptikos:theme';
+  const darkMQ = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  const isDark = () => {
+    const t = document.documentElement.dataset.theme;
+    return t ? t === 'dark' : !!(darkMQ && darkMQ.matches);
+  };
+  function themeLabel() {
+    const T = I18N[store.lang] || I18N.es, btn = $('#theme-btn');
+    const label = isDark() ? T.theme.toLight : T.theme.toDark;
+    btn.setAttribute('aria-label', label);
+    btn.title = label;
+    const meta = document.querySelectorAll('meta[name="theme-color"]');
+    meta.forEach(m => { m.setAttribute('content', isDark() ? '#141413' : '#FAF8F3'); m.removeAttribute('media'); });
+  }
+  $('#theme-btn').addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* ignorar */ }
+    themeLabel();
+  });
+  if (darkMQ && darkMQ.addEventListener) darkMQ.addEventListener('change', themeLabel);
+
   /* ---------------- Vistas ---------------- */
+  // Número del críptico dentro de su idioma (por orden de fecha)
+  const numOf = (p, lang) => list(lang).findIndex(x => x.id === p.id) + 1;
+  const kicker = (label, p, lang) =>
+    `<div class="kicker-row"><p class="kicker"><span class="num">${esc(I18N[lang].num)} ${numOf(p, lang)}</span> ${esc(label)}</p>${p.fecha === todayISO() ? '' : `<p class="kicker-date">${esc(fmtLong(p.fecha, lang))}</p>`}</div>`;
   function statsLine(lang) {
     const T = I18N[lang], s = stats(lang);
     return `<p class="stats-line"><b>${s.cur}</b> ${esc(T.stats.streak.toLowerCase())} · <b>${s.best}</b> ${esc(T.stats.best.toLowerCase())} · <b>${s.total}</b> ${esc(T.pointsShort)}</p>`;
@@ -184,7 +216,7 @@
     const T = I18N[lang], { p, fresh } = daily(lang);
     if (!p) { app.innerHTML = `<h1>${esc(T.dailyTitle)}</h1><p>${esc(T.noPuzzles)}</p>`; return; }
     const head = `
-      <p class="kicker">${esc(T.dailyTitle)} · ${esc(fmtLong(p.fecha, lang))}</p>
+      ${kicker(T.dailyTitle, p, lang)}
       ${statsLine(lang)}
       ${fresh ? '' : `<p class="note">${esc(T.noNewToday)}</p>`}`;
     renderPuzzle(app, lang, p, head);
@@ -197,7 +229,7 @@
     const isToday = p.fecha === todayISO();
     const head = `
       <a class="back" href="${href(lang, 'archive')}">${esc(T.back)}</a>
-      <p class="kicker">${esc(isToday ? T.dailyTitle : T.titles.puzzle)} · ${esc(fmtLong(p.fecha, lang))}</p>
+      ${kicker(isToday ? T.dailyTitle : T.titles.puzzle, p, lang)}
       ${isToday ? '' : `<p class="note">${esc(T.archiveNote)}</p>`}`;
     renderPuzzle(app, lang, p, head);
   }
@@ -270,11 +302,13 @@
 
     app.innerHTML = `
       ${headHTML}
+      <div class="puzzle-layout">
+      <div class="puzzle-main">
       <div class="clue-card">
         ${levelTag(p, T)}
         <p class="clue" id="clue">${clueHTML(p.pista, p)} <span class="enum">(${enumStr(p.respuesta)})</span></p>
         <div class="legend" id="legend" hidden>${ROLES.map(r => `<span class="tag tag-${r}">${esc(T.roles[r])}</span>`).join('')}</div>
-      </div>
+      <div class="answer-zone">
       <form id="answer-form" novalidate autocomplete="off">
         <div class="boxes" id="boxes" role="group" aria-label="${esc(T.answerLabel)}" style="--n:${n}"></div>
         <!-- Botón invisible: permite que el «Intro»/«Ir» del teclado del móvil envíe el formulario -->
@@ -286,7 +320,11 @@
         <span class="possible" id="possible"></span>
       </div>
       <p class="msg" id="msg" aria-live="polite"></p>
-      <div class="hints" id="hints">
+      </div>
+      </div>
+      <div class="result" id="result" hidden></div>
+      </div>
+      <aside class="hints" id="hints">
         <h2 class="h-small">${esc(T.hints)}</h2>
         <div class="hint-grid">
           ${ROLES.map(r => `<button type="button" class="hint hint-${r}" data-hint="${r}"><span>${esc(T.hintLabels[r])}</span><span class="hint-cost">${has(r) ? '−' + PEN[r] : esc(T.notAvailable)}</span></button>`).join('')}
@@ -294,8 +332,8 @@
         </div>
         <p class="hint-note" id="hint-note"></p>
         <div class="giveup-row"><button type="button" class="btn ghost sm" id="giveup">${esc(T.giveUp)}</button></div>
+      </aside>
       </div>
-      <div class="result" id="result" hidden></div>
       <dialog class="scratch" id="scratch" aria-labelledby="scratch-title">
         <div class="scratch-head">
           <h2 id="scratch-title">${esc(T.scratch.title)}</h2>
@@ -396,6 +434,8 @@
         pr.solvedOn = todayISO();
         save();
         route(true); // repinta (estadísticas incluidas) sin mover el scroll
+        const bx = $('#boxes');
+        if (bx) { bx.querySelectorAll('.box').forEach((el, i) => el.style.setProperty('--i', i)); bx.classList.add('win'); }
         const r = $('#result');
         if (r) r.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       } else {

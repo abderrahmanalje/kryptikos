@@ -79,7 +79,10 @@ window.KRYPTIKOS_I18N = {
       streak: '<strong>Racha:</strong> días seguidos resolviendo el críptico del día en su propio día. Los del archivo suman puntos, pero no alargan la racha.',
       save: 'Tu progreso se guarda en este navegador.'
     },
-    footer: 'kryptikós · crípticos en español y en catalán'
+    footer: 'kryptikós · crípticos en español y en catalán',
+    tagline: 'Crípticos para pensar despacio',
+    num: 'Nº',
+    theme: { toDark: 'Cambiar a modo oscuro', toLight: 'Cambiar a modo claro' }
   },
 
   ca: {
@@ -161,6 +164,9 @@ window.KRYPTIKOS_I18N = {
       streak: '<strong>Ratxa:</strong> dies seguits resolent el críptic del dia el mateix dia. Els de l’arxiu sumen punts, però no allarguen la ratxa.',
       save: 'El teu progrés es desa en aquest navegador.'
     },
-    footer: 'kryptikós · críptics en català i en castellà'
+    footer: 'kryptikós · críptics en català i en castellà',
+    tagline: 'Críptics per pensar a poc a poc',
+    num: 'Núm.',
+    theme: { toDark: 'Canvia al mode fosc', toLight: 'Canvia al mode clar' }
   }
 };

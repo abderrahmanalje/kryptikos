@@ -17,7 +17,8 @@ Crípticos diarios en español y en catalán. Web estática: HTML, CSS y JavaScr
 
 ```
 index.html            página única (rutas con #/es/…, #/ca/…)
-css/styles.css        estilos (modo claro y oscuro automático)
+css/styles.css        estilos «Tinta y papel» (modo claro y oscuro)
+fonts/                Fraunces e Instrument Sans, alojadas en el propio sitio
 data/puzzles-es.js    crípticos en español
 data/puzzles-ca.js    críptics en català
 js/i18n.js            textos de la interfaz en los dos idiomas
@@ -60,7 +61,13 @@ Para comprobar los crípticos tras editarlos (que cada trozo resaltado esté en 
 
 ## Al publicar cambios
 
-En `index.html` los archivos llevan un número de versión (`app.js?v=4`). Súbelo (`?v=5`, `?v=6`…) cada vez que publiques cambios, para que los navegadores descarguen la versión nueva en lugar de usar la que tienen guardada.
+En `index.html` los archivos llevan un número de versión (`app.js?v=8`). Súbelo (`?v=9`, `?v=10`…) cada vez que publiques cambios, para que los navegadores descarguen la versión nueva en lugar de usar la que tienen guardada.
+
+## Diseño
+
+- Colores en variables al principio de `css/styles.css`: blanco cálido `#FAF8F3`, tinta `#111111`, acento cobalto `#2541E8` y amarillo marcador `#F2C230`. El modo oscuro usa gris muy oscuro (`#141413`), no negro puro.
+- Por defecto sigue el modo claro u oscuro del sistema. El botón sol/luna de la cabecera lo fija y se recuerda en ese navegador (clave `kryptikos:theme`).
+- Tipografías: **Fraunces** para títulos y pistas, **Instrument Sans** para la interfaz.
 
 ## Puntuación
 
