@@ -291,7 +291,9 @@ main { max-width: 760px; margin: 0 auto; padding: 24px 16px 56px; outline: none;
 .tools { margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--line); }
 .tools-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .btn.danger { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 45%, transparent); }
-.tools .msg { text-align: left; }
+.test-banner p { margin: 0 0 10px; }
+.test-banner .tools-row { margin-bottom: 0; }
+.test-banner .msg { text-align: left; margin: 8px 0 0; min-height: 0; }
 .test-banner { border-style: solid; border-color: var(--ind); color: var(--ind); }
 
 /* Borrador (mezclar letras) */

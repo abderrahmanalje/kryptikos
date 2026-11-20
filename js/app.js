@@ -208,7 +208,15 @@
     app.innerHTML = `
       <h1>${esc(T.nav.archive)}</h1>
       <p class="lede">${esc(T.archiveIntro)}</p>
-      ${TEST_MODE ? `<p class="note test-banner">${esc(T.tools.testBanner)}</p>` : ''}
+      ${TEST_MODE ? `
+      <section class="note test-banner" aria-label="${esc(T.tools.title)}">
+        <p>${esc(T.tools.testBanner)}</p>
+        <div class="tools-row">
+          <a class="btn ghost sm" href="${esc(testURL(false))}">${esc(T.tools.testOff)}</a>
+          <button type="button" class="btn ghost sm danger" id="reset">${esc(T.tools.reset)}</button>
+        </div>
+        <p class="msg" id="tools-msg" aria-live="polite"></p>
+      </section>` : ''}
       ${statsGrid(lang)}
       <ol class="archive-list">
         ${items.map(p => {
@@ -222,18 +230,10 @@
             <span class="arch-status">${esc(label)}</span>
           </a></li>`;
         }).join('')}
-      </ol>
-      <section class="tools">
-        <h2 class="h-small">${esc(T.tools.title)}</h2>
-        <div class="tools-row">
-          <a class="btn ghost sm" href="${esc(testURL(!TEST_MODE))}">${esc(TEST_MODE ? T.tools.testOff : T.tools.testOn)}</a>
-          <button type="button" class="btn ghost sm danger" id="reset">${esc(T.tools.reset)}</button>
-        </div>
-        <p class="msg" id="tools-msg" aria-live="polite"></p>
-      </section>`;
+      </ol>`;
 
-    // El cambio de ?pruebas recarga la página (cambia la dirección, no solo el #)
-    $('#reset').addEventListener('click', () => {
+    // «Borrar mi progreso» solo existe dentro del modo pruebas
+    if (TEST_MODE) $('#reset').addEventListener('click', () => {
       if (!window.confirm(T.tools.resetConfirm)) return;
       store.progress = {};
       save();
@@ -551,6 +551,20 @@
     if (e.target.closest && e.target.closest('button, a, textarea, select, dialog')) return;
     e.preventDefault();
     currentCheck();
+  });
+
+  // Entrada escondida al modo pruebas: pulsar 5 veces seguidas el logo
+  // (también se puede añadir ?pruebas a la dirección)
+  let logoTaps = 0, logoTimer = null;
+  $('#logo').addEventListener('click', () => {
+    if (TEST_MODE) return;
+    logoTaps++;
+    clearTimeout(logoTimer);
+    logoTimer = setTimeout(() => { logoTaps = 0; }, 1500);
+    if (logoTaps >= 5) {
+      const lang = LANGS.includes(store.lang) ? store.lang : defaultLang();
+      location.href = location.pathname + '?pruebas' + href(lang, 'archive');
+    }
   });
 
   window.addEventListener('hashchange', () => route(false));

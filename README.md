@@ -49,10 +49,12 @@ Añade un objeto al final de `data/puzzles-es.js` o `data/puzzles-ca.js` (el for
 
 ## Probar y empezar de cero
 
-Al final del **Archivo** hay dos herramientas:
+El **modo pruebas** está escondido. Muestra también los crípticos de días futuros y el botón **Borrar mi progreso** (puntos, rachas y respuestas de los dos idiomas en ese navegador). Se entra de dos formas:
 
-- **Modo pruebas**: muestra también los crípticos de días futuros. Equivale a añadir `?pruebas` a la dirección, por ejemplo `https://abderrahmanalje.github.io/kryptikos/?pruebas#/es/archivo`.
-- **Borrar mi progreso**: borra puntos, rachas y respuestas de los dos idiomas en ese navegador.
+- Pulsando **5 veces seguidas el logo κ kryptikós**.
+- Añadiendo `?pruebas` a la dirección, por ejemplo `https://abderrahmanalje.github.io/kryptikos/?pruebas#/es/archivo`.
+
+Dentro, el Archivo muestra un aviso con los botones **Salir del modo pruebas** y **Borrar mi progreso**. Fuera del modo pruebas no se ve ninguno de los dos.
 
 Para comprobar los crípticos tras editarlos (que cada trozo resaltado esté en la pista, que los anagramas cuadren…), en la consola del navegador no debe aparecer ningún aviso `[kryptikós]`.
 

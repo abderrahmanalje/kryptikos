@@ -56,7 +56,6 @@ window.KRYPTIKOS_I18N = {
       reset: 'Borrar mi progreso',
       resetConfirm: '¿Seguro? Se borrarán tus puntos, rachas y respuestas de los dos idiomas en este navegador. No se puede deshacer.',
       resetDone: 'Progreso borrado. Puedes empezar de cero.',
-      testOn: 'Ver también los crípticos futuros (modo pruebas)',
       testOff: 'Salir del modo pruebas',
       testBanner: 'Modo pruebas: se ven también los crípticos de días futuros.',
       upcoming: 'próximo'
@@ -139,7 +138,6 @@ window.KRYPTIKOS_I18N = {
       reset: 'Esborrar el meu progrés',
       resetConfirm: 'Segur? S’esborraran els teus punts, ratxes i respostes de les dues llengües en aquest navegador. No es pot desfer.',
       resetDone: 'Progrés esborrat. Pots començar de zero.',
-      testOn: 'Veure també els críptics futurs (mode proves)',
       testOff: 'Sortir del mode proves',
       testBanner: 'Mode proves: també es veuen els críptics de dies futurs.',
       upcoming: 'proper'

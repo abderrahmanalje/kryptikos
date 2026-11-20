@@ -32,9 +32,9 @@ window.KRYPTIKOS_PUZZLES.es = [
     explicacion: 'Dentro de «poc**O CASO**» se esconde **OCASO**, el final del día.'
   },
   {
-    id: 'es-003', fecha: '2026-11-10', dificultad: 'facil',
+    id: 'es-003', fecha: '2026-11-10', dificultad: 'dificil',
     pista: 'Ignorante, perdido, nacido junto al Plata',
-    respuesta: 'ARGENTINO', tipo: 'charade',
+    respuesta: 'ARGENTINO', tipo: 'anagram',
     definicion: ['nacido junto al Plata'], indicador: ['perdido'], material: ['Ignorante'],
     explicacion: '**IGNORANTE** con las letras desordenadas («perdido») da **ARGENTINO**: alguien nacido junto al Río de la Plata.'
   },
@@ -102,9 +102,9 @@ window.KRYPTIKOS_PUZZLES.es = [
     explicacion: '**TOR** (TORO sin la última letra, «sin cola») + **MENTA** (hierba aromática) = **TORMENTA**, una tempestad.'
   },
   {
-    id: 'es-013', fecha: '2026-11-20', dificultad: 'dificil',
+    id: 'es-013', fecha: '2026-11-20', dificultad: 'facil',
     pista: 'Número y roedor: bandido del mar',
-    respuesta: 'ARGENTINO', tipo: 'anagram',
+    respuesta: 'PIRATA', tipo: 'charade',
     definicion: ['bandido del mar'], indicador: ['y'], material: ['Número', 'roedor'],
     explicacion: '**PI** (un número) + **RATA** (un roedor) = **PIRATA**, bandido del mar.'
   },
