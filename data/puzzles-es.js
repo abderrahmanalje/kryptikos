@@ -9,7 +9,7 @@
  *   pista       el texto de la pista, SIN el número de letras (se calcula solo)
  *   respuesta   la solución (los espacios separan palabras: "BAJO CERO" → (4,4))
  *   tipo        anagram | hidden | hiddenReversal | reversal | container | charade | deletion |
- *               double | acrostic | telestich | homophone | compound
+ *               double | acrostic | telestich | homophone | compound | letterplay
  *   definicion / indicador / material
  *               trozos LITERALES de la pista (se resaltan al pedir pistas).
  *               Lista vacía [] si la pista no tiene esa pieza.
@@ -291,12 +291,12 @@ window.KRYPTIKOS_PUZZLES.es = [
     respuesta: 'CAMPANA', tipo: 'container',
     definicion: ['suena en la iglesia'], indicador: ['dentro de'], material: ['Pan', 'la cama'],
     explicacion: '**PAN** dentro de **CAMA**: CAM·PAN·A = **CAMPANA**, que suena en la iglesia.'
-  }
+  },
   {
     id: 'es-040', fecha: '2026-12-17', dificultad: 'dificil',
-    pista: 'El pan con un rulo. Oigo, huelo y seco mis lagrimas',
-    respuesta: 'PAÑUELO', tipo: 'anagram',
-    definicion: ['seco mis lagrimas'], indicador: ['con un', 'Oigo'], material: ['Pan', 'huelo'],
-    explicacion: ''
+    pista: 'El pan con un rulo. Oigo, huelo y seco mis lágrimas',
+    respuesta: 'PAÑUELO', tipo: 'compound',
+    definicion: ['seco mis lágrimas'], indicador: ['con un rulo', 'Oigo'], material: ['pan', 'huelo'],
+    explicacion: '**PAN** con un rulo (la tilde de la ñ) se convierte en **PAÑ**. «Oigo» indica que suena: **HUELO** se oye igual que **UELO**, porque la hache es muda. PAÑ + UELO = **PAÑUELO**, con el que seco mis lágrimas.'
   }
 ];

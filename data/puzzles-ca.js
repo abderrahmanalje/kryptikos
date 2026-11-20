@@ -278,5 +278,12 @@ window.KRYPTIKOS_PUZZLES.ca = [
     respuesta: 'PATA', tipo: 'anagram',
     definicion: ['femella de l’ànec'], indicador: ['boja'], material: ['Tapa'],
     explicacion: 'Les lletres de **TAPA**, boges (desordenades), formen **PATA**, la femella de l’ànec.'
+  },
+  {
+    id: 'ca-040', fecha: '2026-12-17', dificultad: 'dificil',
+    pista: 'La forca, amb una cua, dona energia',
+    respuesta: 'FORÇA', tipo: 'letterplay',
+    definicion: ['energia'], indicador: ['amb una cua'], material: ['La forca'],
+    explicacion: '**FORCA** (l’eina de pagès) amb una cua a la C, que és la ce trencada, es converteix en **FORÇA**: energia.'
   }
 ];

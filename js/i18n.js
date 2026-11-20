@@ -41,7 +41,7 @@ window.KRYPTIKOS_I18N = {
       anagram: 'Anagrama', hidden: 'Palabra oculta', hiddenReversal: 'Palabra oculta invertida',
       reversal: 'Inversión', container: 'Contenedor', charade: 'Charada', deletion: 'Supresión',
       double: 'Doble definición', acrostic: 'Acróstico', telestich: 'Letras finales', homophone: 'Homófono',
-      compound: 'Combinada (charada + supresión)'
+      compound: 'Combinada', letterplay: 'Juego de letras'
     },
     levels: { facil: 'Fácil', dificil: 'Difícil', ultra: 'Ultra difícil' },
     scratch: {
@@ -123,7 +123,7 @@ window.KRYPTIKOS_I18N = {
       anagram: 'Anagrama', hidden: 'Paraula amagada', hiddenReversal: 'Paraula amagada inversa',
       reversal: 'Inversió', container: 'Contenidor', charade: 'Xarada', deletion: 'Supressió',
       double: 'Doble definició', acrostic: 'Acròstic', telestich: 'Lletres finals', homophone: 'Homòfon',
-      compound: 'Combinada (xarada + supressió)'
+      compound: 'Combinada', letterplay: 'Joc de lletres'
     },
     levels: { facil: 'Fàcil', dificil: 'Difícil', ultra: 'Ultra difícil' },
     scratch: {
