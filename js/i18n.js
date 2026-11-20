@@ -44,6 +44,13 @@ window.KRYPTIKOS_I18N = {
       compound: 'Combinada (charada + supresión)'
     },
     levels: { facil: 'Fácil', dificil: 'Difícil', ultra: 'Ultra difícil' },
+    scratch: {
+      open: 'Borrador', title: 'Borrador', close: 'Cerrar',
+      label: 'Escribe letras o palabras', placeholder: 'p. ej. ignorante',
+      shuffle: 'Mezclar', clear: 'Vaciar',
+      empty: 'Lo que escribas aparecerá aquí.',
+      note: 'Cada vez que pulses Mezclar (o Intro) las letras se reordenan al azar. No resta puntos.'
+    },
     tools: {
       title: 'Herramientas',
       reset: 'Borrar mi progreso',
@@ -120,6 +127,13 @@ window.KRYPTIKOS_I18N = {
       compound: 'Combinada (xarada + supressió)'
     },
     levels: { facil: 'Fàcil', dificil: 'Difícil', ultra: 'Ultra difícil' },
+    scratch: {
+      open: 'Esborrany', title: 'Esborrany', close: 'Tanca',
+      label: 'Escriu lletres o paraules', placeholder: 'p. ex. present',
+      shuffle: 'Barreja', clear: 'Buida',
+      empty: 'El que escriguis apareixerà aquí.',
+      note: 'Cada cop que premis Barreja (o Retorn) les lletres es reordenen a l’atzar. No resta punts.'
+    },
     tools: {
       title: 'Eines',
       reset: 'Esborrar el meu progrés',

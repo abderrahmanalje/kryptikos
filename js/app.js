@@ -282,6 +282,7 @@
       </form>
       <div class="actions" id="actions">
         <button type="button" class="btn primary" id="check">${esc(T.check)}</button>
+        <button type="button" class="btn ghost" id="scratch-open" aria-haspopup="dialog">${esc(T.scratch.open)}</button>
         <span class="possible" id="possible"></span>
       </div>
       <p class="msg" id="msg" aria-live="polite"></p>
@@ -294,7 +295,23 @@
         <p class="hint-note" id="hint-note"></p>
         <div class="giveup-row"><button type="button" class="btn ghost sm" id="giveup">${esc(T.giveUp)}</button></div>
       </div>
-      <div class="result" id="result" hidden></div>`;
+      <div class="result" id="result" hidden></div>
+      <dialog class="scratch" id="scratch" aria-labelledby="scratch-title">
+        <div class="scratch-head">
+          <h2 id="scratch-title">${esc(T.scratch.title)}</h2>
+          <button type="button" class="scratch-close" id="scratch-close" aria-label="${esc(T.scratch.close)}">×</button>
+        </div>
+        <p class="clue scratch-clue">${clueHTML(p.pista, p)} <span class="enum">(${enumStr(p.respuesta)})</span></p>
+        <label class="scratch-label" for="scratch-input">${esc(T.scratch.label)}</label>
+        <input class="scratch-input" id="scratch-input" type="text" autocomplete="off" spellcheck="false"
+               autocapitalize="characters" enterkeyhint="go" placeholder="${esc(T.scratch.placeholder)}">
+        <div class="scratch-tiles" id="scratch-tiles" aria-live="polite"></div>
+        <div class="scratch-actions">
+          <button type="button" class="btn primary" id="scratch-shuffle">${esc(T.scratch.shuffle)}</button>
+          <button type="button" class="btn ghost" id="scratch-clear">${esc(T.scratch.clear)}</button>
+        </div>
+        <p class="hint-note">${esc(T.scratch.note)}</p>
+      </dialog>`;
 
     const boxesEl = $('#boxes'), msg = $('#msg');
     const boxes = letters.map((_, i) => {
@@ -439,6 +456,7 @@
     $('#check').addEventListener('click', check);
     $('#answer-form').addEventListener('submit', e => { e.preventDefault(); check(); });
     currentCheck = check;
+    setupScratch(p, pr, T);
 
     document.querySelectorAll('[data-hint]').forEach(btn => btn.addEventListener('click', () => {
       if (done()) return;
@@ -465,11 +483,72 @@
     update();
   }
 
+  /* ---------------- Borrador: escribir y mezclar letras al azar ---------------- */
+  function setupScratch(p, pr, T) {
+    const dlg = $('#scratch'), input = $('#scratch-input'), tilesEl = $('#scratch-tiles');
+    if (!dlg) return;
+    let order = []; // posiciones de las letras escritas, en el orden en que se muestran
+    const letters = () => Array.from(input.value.toUpperCase()).filter(W.isL);
+
+    function draw(animate) {
+      const ls = letters();
+      const before = new Map();
+      if (animate) tilesEl.querySelectorAll('.stile').forEach(t => before.set(t.dataset.k, t.getBoundingClientRect()));
+      tilesEl.innerHTML = ls.length
+        ? order.map(k => `<span class="stile" data-k="${k}">${esc(ls[k])}</span>`).join('')
+        : `<span class="scratch-empty">${esc(T.scratch.empty)}</span>`;
+      if (!animate) return;
+      // Animación FLIP: cada ficha viaja desde su posición anterior a la nueva
+      tilesEl.querySelectorAll('.stile').forEach(t => {
+        const a = before.get(t.dataset.k);
+        if (!a) return;
+        const b = t.getBoundingClientRect();
+        const dx = a.left - b.left, dy = a.top - b.top;
+        if (!dx && !dy) return;
+        t.style.transition = 'none';
+        t.style.transform = `translate(${dx}px, ${dy}px)`;
+        requestAnimationFrame(() => requestAnimationFrame(() => { t.style.transition = ''; t.style.transform = ''; }));
+      });
+    }
+    function reset() { order = letters().map((_, i) => i); draw(false); }
+    function shuffle() {
+      const ls = letters(), n = order.length;
+      if (n < 2) { input.focus(); return; }
+      const key = o => o.map(k => norm(ls[k])).join('');
+      const prev = key(order);
+      const allSame = new Set(ls.map(norm)).size < 2;
+      const next = order.slice();
+      for (let tries = 0; tries < 20; tries++) { // evita repetir el mismo orden que ya se ve
+        for (let i = n - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [next[i], next[j]] = [next[j], next[i]]; }
+        if (allSame || key(next) !== prev) break;
+      }
+      order = next;
+      draw(true);
+    }
+
+    input.value = pr.borrador || '';
+    reset();
+    input.addEventListener('input', () => { pr.borrador = input.value; save(); reset(); });
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); shuffle(); } });
+    $('#scratch-shuffle').addEventListener('click', shuffle);
+    $('#scratch-clear').addEventListener('click', () => { input.value = ''; pr.borrador = ''; save(); reset(); input.focus(); });
+    $('#scratch-open').addEventListener('click', () => {
+      // La pista del borrador muestra los mismos resaltados que ya hayas pedido
+      const dst = dlg.querySelector('.scratch-clue'), src = $('#clue');
+      ROLES.forEach(r => dst.classList.toggle('show-' + r, src.classList.contains('show-' + r)));
+      if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+      input.focus();
+    });
+    $('#scratch-close').addEventListener('click', () => {
+      if (typeof dlg.close === 'function') dlg.close(); else dlg.removeAttribute('open');
+    });
+  }
+
   // Intro comprueba la respuesta aunque el foco no esté en una casilla
   // (los botones y enlaces conservan su comportamiento normal con Intro)
   document.addEventListener('keydown', e => {
     if (e.key !== 'Enter' || e.defaultPrevented || e.isComposing || !currentCheck) return;
-    if (e.target.closest && e.target.closest('button, a, textarea, select')) return;
+    if (e.target.closest && e.target.closest('button, a, textarea, select, dialog')) return;
     e.preventDefault();
     currentCheck();
   });
