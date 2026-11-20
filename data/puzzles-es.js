@@ -298,5 +298,12 @@ window.KRYPTIKOS_PUZZLES.es = [
     respuesta: 'PAÑUELO', tipo: 'compound',
     definicion: ['seco mis lágrimas'], indicador: ['con un rulo', 'Oigo'], material: ['pan', 'huelo'],
     explicacion: '**PAN** con un rulo (la tilde de la ñ) se convierte en **PAÑ**. «Oigo» indica que suena: **HUELO** se oye igual que **UELO**, porque la hache es muda. PAÑ + UELO = **PAÑUELO**, con el que seco mis lágrimas.'
+  },
+  {
+    id: 'es-041', fecha: '2026-12-18', dificultad: 'ultra',
+    pista: 'A principios de 2892, encontré por fin el lugar indicado',
+    respuesta: 'DONDE', tipo: 'compound',
+    definicion: ['el lugar indicado'], indicador: ['A principios de', 'por fin'], material: ['2892', 'encontré'],
+    explicacion: 'Hay que leer **2892** cifra a cifra: **D**os, **O**cho, **N**ueve, **D**os. «A principios de» pide sus iniciales: **DOND**. «Por fin» pide la última letra de encontr**É**: **E**. DOND + E = **DONDE**, el lugar indicado.'
   }
 ];
