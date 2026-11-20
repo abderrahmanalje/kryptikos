@@ -248,7 +248,11 @@
         <p class="clue" id="clue">${clueHTML(p.pista, p)} <span class="enum">(${enumStr(p.respuesta)})</span></p>
         <div class="legend" id="legend" hidden>${ROLES.map(r => `<span class="tag tag-${r}">${esc(T.roles[r])}</span>`).join('')}</div>
       </div>
-      <div class="boxes" id="boxes" role="group" aria-label="${esc(T.answerLabel)}" style="--n:${n}"></div>
+      <form id="answer-form" novalidate autocomplete="off">
+        <div class="boxes" id="boxes" role="group" aria-label="${esc(T.answerLabel)}" style="--n:${n}"></div>
+        <!-- Botón invisible: permite que el «Intro»/«Ir» del teclado del móvil envíe el formulario -->
+        <button type="submit" class="sr-only" tabindex="-1" aria-hidden="true">${esc(T.check)}</button>
+      </form>
       <div class="actions" id="actions">
         <button type="button" class="btn primary" id="check">${esc(T.check)}</button>
         <span class="possible" id="possible"></span>
@@ -270,6 +274,7 @@
       const b = document.createElement('input');
       b.className = 'box' + (gapAfter.has(i) ? ' gap-after' : '');
       b.type = 'text'; b.inputMode = 'text';
+      b.setAttribute('enterkeyhint', 'go'); // en el móvil, la tecla de acción es «Ir» y no «Siguiente»
       b.autocomplete = 'off'; b.spellcheck = false;
       b.setAttribute('autocapitalize', 'characters');
       b.setAttribute('autocorrect', 'off');
@@ -405,6 +410,7 @@
     });
 
     $('#check').addEventListener('click', check);
+    $('#answer-form').addEventListener('submit', e => { e.preventDefault(); check(); });
     currentCheck = check;
 
     document.querySelectorAll('[data-hint]').forEach(btn => btn.addEventListener('click', () => {

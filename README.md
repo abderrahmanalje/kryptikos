@@ -46,6 +46,10 @@ Añade un objeto al final de `data/puzzles-es.js` o `data/puzzles-ca.js` (el for
 - `definicion`, `indicador` y `material` deben ser trozos **literales** de la pista. Si alguno no se encuentra, aparece un aviso en la consola del navegador.
 - No cambies el `id` de un críptico ya publicado: el progreso se guarda con él.
 
+## Al publicar cambios
+
+En `index.html` los archivos llevan un número de versión (`app.js?v=3`). Súbelo (`?v=4`, `?v=5`…) cada vez que publiques cambios, para que los navegadores descarguen la versión nueva en lugar de usar la que tienen guardada.
+
 ## Puntuación
 
 Se ajusta en `js/app.js` (constante `PEN`). La página «Cómo se juega» se actualiza sola.
