@@ -125,7 +125,10 @@
     return (navigator.language || '').toLowerCase().startsWith('ca') ? 'ca' : 'es';
   }
 
+  let currentCheck = null; // función «Comprobar» del críptico en pantalla, si lo hay
+
   function route(keepScroll) {
+    currentCheck = null;
     const r = parse();
     if (r.redirect) { location.replace(href(defaultLang(), 'today')); return; }
     store.lang = r.lang; save();
@@ -357,11 +360,12 @@
 
     boxes.forEach((b, i) => {
       b.addEventListener('focus', () => b.select());
-      b.addEventListener('input', () => {
+      b.addEventListener('input', e => {
         if (!editable(i)) return;
-        let typed = lettersOf(norm(b.value));
-        // Si la casilla ya tenía letra y se escribe otra, nos quedamos con la nueva
-        if (typed.length > 1 && pr.entry[i] && typed[0] === pr.entry[i]) typed = typed.slice(1);
+        // Preferimos lo que se acaba de escribir o pegar (e.data); si no lo hay, el contenido de la casilla
+        let typed = e.data ? lettersOf(norm(e.data)) : lettersOf(norm(b.value));
+        if (!e.data && typed.length > 1 && pr.entry[i] && typed[0] === pr.entry[i]) typed = typed.slice(1);
+        if (e.data && !typed.length) { b.value = pr.entry[i] || ''; return; } // espacio, número…: se ignora
         if (msg.textContent) say('');
         if (!typed.length) { pr.entry[i] = ''; b.value = ''; save(); return; }
         // Varias letras de golpe (pegar, escritura rápida): se reparten por las casillas siguientes
@@ -369,16 +373,21 @@
         if (typed.length > 1 && typed.length === n - i) {
           // Se ha pegado el resto de la palabra completa: posición a posición, respetando las reveladas
           typed.forEach((ch, k) => { if (editable(i + k)) { pr.entry[i + k] = ch; boxes[i + k].value = ch; } });
-          save(); b.blur();
+          save();
+          const last = prevEditable(n); // la casilla sigue enfocada para poder pulsar Intro
+          if (last >= 0) boxes[last].focus();
           return;
         }
+        let lastWritten = i;
         for (const ch of typed) {
           if (j < 0) break;
           pr.entry[j] = ch; boxes[j].value = ch;
+          lastWritten = j;
           j = nextEditable(j);
         }
         save();
-        if (j >= 0) boxes[j].focus(); else b.blur();
+        // Al llenar la última casilla, el foco se queda en ella para poder pulsar Intro
+        boxes[j >= 0 ? j : lastWritten].focus();
       });
       b.addEventListener('keydown', e => {
         if (e.key === 'Backspace' && !b.value) {
@@ -396,6 +405,7 @@
     });
 
     $('#check').addEventListener('click', check);
+    currentCheck = check;
 
     document.querySelectorAll('[data-hint]').forEach(btn => btn.addEventListener('click', () => {
       if (done()) return;
@@ -421,6 +431,15 @@
 
     update();
   }
+
+  // Intro comprueba la respuesta aunque el foco no esté en una casilla
+  // (los botones y enlaces conservan su comportamiento normal con Intro)
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' || e.defaultPrevented || e.isComposing || !currentCheck) return;
+    if (e.target.closest && e.target.closest('button, a, textarea, select')) return;
+    e.preventDefault();
+    currentCheck();
+  });
 
   window.addEventListener('hashchange', () => route(false));
   route(false);
