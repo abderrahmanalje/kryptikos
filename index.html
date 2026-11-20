@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kryptikós</title>
+  <meta name="description" content="Crípticos diarios en español y en catalán.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23b23a2a'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='38' text-anchor='middle' fill='white'%3E%CE%BA%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" id="logo" href="#/"><span class="logo-k" aria-hidden="true">κ</span>kryptikós</a>
+    <nav id="nav" aria-label="Principal"></nav>
+    <div class="lang-switch" role="group" aria-label="Idioma / Llengua">
+      <button type="button" data-lang="es" lang="es">ES</button>
+      <button type="button" data-lang="ca" lang="ca">CA</button>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1"></main>
+
+  <footer class="site-footer"><p id="footer"></p></footer>
+
+  <!-- Datos -->
+  <script src="data/puzzles-es.js"></script>
+  <script src="data/puzzles-ca.js"></script>
+  <!-- Textos de la interfaz y tutorial -->
+  <script src="js/i18n.js"></script>
+  <script src="js/tutorial-es.js"></script>
+  <script src="js/tutorial-ca.js"></script>
+  <!-- Lógica -->
+  <script src="js/widgets.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

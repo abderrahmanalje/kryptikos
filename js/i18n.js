@@ -1,0 +1,132 @@
+/* Textos de la interfaz. Los acertijos NO se traducen: cada idioma tiene los suyos. */
+window.KRYPTIKOS_I18N = {
+  es: {
+    locale: 'es-ES',
+    slugs: { archive: 'archivo', howto: 'como-se-juega' },
+    nav: { today: 'Hoy', archive: 'Archivo', howto: 'Cómo se juega' },
+    titles: { today: 'Críptico del día', archive: 'Archivo', howto: 'Cómo se juega', puzzle: 'Críptico' },
+    dailyTitle: 'Críptico del día',
+    noNewToday: 'Hoy no hay críptico nuevo. Aquí tienes el último publicado.',
+    noPuzzles: 'Todavía no hay crípticos publicados.',
+    notFound: 'No hemos encontrado este críptico.',
+    back: '← Volver al archivo',
+    archiveNote: 'Críptico del archivo: suma puntos, pero no cuenta para la racha.',
+    roles: { definicion: 'Definición', indicador: 'Indicador', material: 'Material' },
+    hints: 'Pistas',
+    hintLabels: { definicion: 'Resaltar definición', indicador: 'Resaltar indicador', material: 'Resaltar material', letra: 'Revelar una letra' },
+    notAvailable: 'no tiene',
+    lastLetter: 'Solo queda una letra por descubrir: esa es tuya.',
+    check: 'Comprobar',
+    giveUp: 'Me rindo',
+    confirmGiveUp: '¿Seguro? Verás la solución y este críptico valdrá 0 puntos.',
+    fillAll: 'Rellena todas las casillas antes de comprobar.',
+    wrong: n => `No es correcto (−${n} puntos).`,
+    possible: 'Valor actual',
+    points: 'puntos',
+    pointsShort: 'pts',
+    solvedTitle: '¡Resuelto!',
+    gaveUpTitle: 'Solución',
+    type: 'Tipo',
+    explanation: 'Explicación',
+    streakNow: n => n === 1 ? 'Racha actual: 1 día.' : `Racha actual: ${n} días seguidos.`,
+    archiveNoStreak: 'Resuelto fuera de su día: suma puntos, pero no cuenta para la racha.',
+    goArchive: 'Ver archivo',
+    stats: { streak: 'Racha', best: 'Mejor racha', solved: 'Resueltos', total: 'Puntos' },
+    archiveIntro: 'Todos los crípticos publicados, del más reciente al más antiguo. La racha solo avanza si resuelves el críptico del día en su propio día.',
+    todayBadge: 'hoy',
+    status: { new: 'Sin empezar', progress: 'En curso', solved: n => `✓ ${n} pts`, gaveup: 'Rendido' },
+    answerLabel: 'Respuesta',
+    letterLabel: (i, n) => `Letra ${i} de ${n}`,
+    types: {
+      anagram: 'Anagrama', hidden: 'Palabra oculta', hiddenReversal: 'Palabra oculta invertida',
+      reversal: 'Inversión', container: 'Contenedor', charade: 'Charada', deletion: 'Supresión',
+      double: 'Doble definición', acrostic: 'Acróstico', homophone: 'Homófono',
+      compound: 'Combinada (charada + supresión)'
+    },
+    ex: { animate: 'Ver animación', replay: 'Repetir', solution: 'Solución' },
+    practice: {
+      prompt: '**Ahora tú:** toca las palabras que forman la definición y pulsa *Comprobar*.',
+      check: 'Comprobar', show: 'Ver solución',
+      correct: '¡Exacto!', wrong: 'Todavía no. Recuerda: la definición está en uno de los extremos.',
+      empty: 'Toca primero alguna palabra.'
+    },
+    tut: { indicators: 'Indicadores habituales', toc: 'Contenido' },
+    scoring: {
+      intro: 'Cada críptico empieza valiendo <strong>100 puntos</strong>. Cada ayuda resta:',
+      rows: {
+        definicion: 'Resaltar la definición', indicador: 'Resaltar el indicador', material: 'Resaltar el material',
+        letra: 'Revelar una letra (cada una)', fallo: 'Respuesta incorrecta (cada intento)'
+      },
+      min: 'Si lo resuelves, te llevas como mínimo <strong>10 puntos</strong>. Si te rindes, 0.',
+      letters: 'Las letras se revelan de una en una hasta que solo queda una por descubrir: esa siempre la pones tú.',
+      streak: '<strong>Racha:</strong> días seguidos resolviendo el críptico del día en su propio día. Los del archivo suman puntos, pero no alargan la racha.',
+      save: 'Tu progreso se guarda en este navegador.'
+    },
+    footer: 'kryptikós · crípticos en español y en catalán'
+  },
+
+  ca: {
+    locale: 'ca-ES',
+    slugs: { archive: 'arxiu', howto: 'com-es-juga' },
+    nav: { today: 'Avui', archive: 'Arxiu', howto: 'Com es juga' },
+    titles: { today: 'Críptic del dia', archive: 'Arxiu', howto: 'Com es juga', puzzle: 'Críptic' },
+    dailyTitle: 'Críptic del dia',
+    noNewToday: 'Avui no hi ha críptic nou. Aquí tens l’últim publicat.',
+    noPuzzles: 'Encara no hi ha críptics publicats.',
+    notFound: 'No hem trobat aquest críptic.',
+    back: '← Tornar a l’arxiu',
+    archiveNote: 'Críptic de l’arxiu: suma punts, però no compta per a la ratxa.',
+    roles: { definicion: 'Definició', indicador: 'Indicador', material: 'Material' },
+    hints: 'Pistes',
+    hintLabels: { definicion: 'Ressaltar definició', indicador: 'Ressaltar indicador', material: 'Ressaltar material', letra: 'Revelar una lletra' },
+    notAvailable: 'no en té',
+    lastLetter: 'Només queda una lletra per descobrir: aquesta és teva.',
+    check: 'Comprova',
+    giveUp: 'Em rendeixo',
+    confirmGiveUp: 'Segur? Veuràs la solució i aquest críptic valdrà 0 punts.',
+    fillAll: 'Omple totes les caselles abans de comprovar.',
+    wrong: n => `No és correcte (−${n} punts).`,
+    possible: 'Valor actual',
+    points: 'punts',
+    pointsShort: 'pts',
+    solvedTitle: 'Resolt!',
+    gaveUpTitle: 'Solució',
+    type: 'Tipus',
+    explanation: 'Explicació',
+    streakNow: n => n === 1 ? 'Ratxa actual: 1 dia.' : `Ratxa actual: ${n} dies seguits.`,
+    archiveNoStreak: 'Resolt fora del seu dia: suma punts, però no compta per a la ratxa.',
+    goArchive: 'Veure l’arxiu',
+    stats: { streak: 'Ratxa', best: 'Millor ratxa', solved: 'Resolts', total: 'Punts' },
+    archiveIntro: 'Tots els críptics publicats, del més recent al més antic. La ratxa només avança si resols el críptic del dia el mateix dia.',
+    todayBadge: 'avui',
+    status: { new: 'Sense començar', progress: 'En curs', solved: n => `✓ ${n} pts`, gaveup: 'Rendit' },
+    answerLabel: 'Resposta',
+    letterLabel: (i, n) => `Lletra ${i} de ${n}`,
+    types: {
+      anagram: 'Anagrama', hidden: 'Paraula amagada', hiddenReversal: 'Paraula amagada inversa',
+      reversal: 'Inversió', container: 'Contenidor', charade: 'Xarada', deletion: 'Supressió',
+      double: 'Doble definició', acrostic: 'Acròstic', homophone: 'Homòfon',
+      compound: 'Combinada (xarada + supressió)'
+    },
+    ex: { animate: 'Mostra l’animació', replay: 'Repeteix', solution: 'Solució' },
+    practice: {
+      prompt: '**Ara tu:** toca les paraules que formen la definició i prem *Comprova*.',
+      check: 'Comprova', show: 'Mostra la solució',
+      correct: 'Exacte!', wrong: 'Encara no. Recorda: la definició és en un dels extrems.',
+      empty: 'Primer toca alguna paraula.'
+    },
+    tut: { indicators: 'Indicadors habituals', toc: 'Contingut' },
+    scoring: {
+      intro: 'Cada críptic comença valent <strong>100 punts</strong>. Cada ajuda en resta:',
+      rows: {
+        definicion: 'Ressaltar la definició', indicador: 'Ressaltar l’indicador', material: 'Ressaltar el material',
+        letra: 'Revelar una lletra (cadascuna)', fallo: 'Resposta incorrecta (cada intent)'
+      },
+      min: 'Si el resols, t’emportes com a mínim <strong>10 punts</strong>. Si et rendeixes, 0.',
+      letters: 'Les lletres es revelen d’una en una fins que només en queda una per descobrir: aquesta sempre la poses tu.',
+      streak: '<strong>Ratxa:</strong> dies seguits resolent el críptic del dia el mateix dia. Els de l’arxiu sumen punts, però no allarguen la ratxa.',
+      save: 'El teu progrés es desa en aquest navegador.'
+    },
+    footer: 'kryptikós · críptics en català i en castellà'
+  }
+};
