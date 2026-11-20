@@ -33,10 +33,10 @@ window.KRYPTIKOS_PUZZLES.es = [
   },
   {
     id: 'es-003', fecha: '2026-11-10', dificultad: 'facil',
-    pista: 'Número y roedor: bandido del mar',
-    respuesta: 'PIRATA', tipo: 'charade',
-    definicion: ['bandido del mar'], indicador: ['y'], material: ['Número', 'roedor'],
-    explicacion: '**PI** (un número) + **RATA** (un roedor) = **PIRATA**, bandido del mar.'
+    pista: 'Ignorante, perdido, nacido junto al Plata',
+    respuesta: 'ARGENTINO', tipo: 'charade',
+    definicion: ['nacido junto al Plata'], indicador: ['perdido'], material: ['Ignorante'],
+    explicacion: '**IGNORANTE** con las letras desordenadas («perdido») da **ARGENTINO**: alguien nacido junto al Río de la Plata.'
   },
   {
     id: 'es-004', fecha: '2026-11-11', dificultad: 'dificil',
@@ -103,10 +103,10 @@ window.KRYPTIKOS_PUZZLES.es = [
   },
   {
     id: 'es-013', fecha: '2026-11-20', dificultad: 'dificil',
-    pista: 'Ignorante, perdido, nacido junto al Plata',
+    pista: 'Número y roedor: bandido del mar',
     respuesta: 'ARGENTINO', tipo: 'anagram',
-    definicion: ['nacido junto al Plata'], indicador: ['perdido'], material: ['Ignorante'],
-    explicacion: '**IGNORANTE** con las letras desordenadas («perdido») da **ARGENTINO**: alguien nacido junto al Río de la Plata.'
+    definicion: ['bandido del mar'], indicador: ['y'], material: ['Número', 'roedor'],
+    explicacion: '**PI** (un número) + **RATA** (un roedor) = **PIRATA**, bandido del mar.'
   },
 
   /* ---------- Tanda 2 ---------- */
