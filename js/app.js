@@ -44,9 +44,14 @@
 
   /* ---------------- Crípticos ---------------- */
   const list = lang => (PUZZLES[lang] || []).slice().sort((a, b) => a.fecha.localeCompare(b.fecha));
-  const published = lang => { const t = todayISO(); return list(lang).filter(p => p.fecha <= t); };
+  // Modo pruebas (?pruebas en la dirección): el archivo muestra también los crípticos futuros
+  const TEST_MODE = /(?:^|[?&])pruebas(?:=|&|$)/.test(location.search);
+  const published = lang => { const t = todayISO(); return list(lang).filter(p => TEST_MODE || p.fecha <= t); };
+  const testURL = on => location.pathname + (on ? '?pruebas' : '') + location.hash;
+  const levelTag = (p, T) => p.dificultad
+    ? `<span class="level level-${esc(p.dificultad)}">${esc((T.levels && T.levels[p.dificultad]) || p.dificultad)}</span>` : '';
   function daily(lang) {
-    const pub = published(lang), t = todayISO();
+    const t = todayISO(), pub = published(lang).filter(p => p.fecha <= t);
     const exact = pub.find(p => p.fecha === t);
     return exact ? { p: exact, fresh: true } : { p: pub[pub.length - 1] || null, fresh: false };
   }
@@ -203,18 +208,39 @@
     app.innerHTML = `
       <h1>${esc(T.nav.archive)}</h1>
       <p class="lede">${esc(T.archiveIntro)}</p>
+      ${TEST_MODE ? `<p class="note test-banner">${esc(T.tools.testBanner)}</p>` : ''}
       ${statsGrid(lang)}
       <ol class="archive-list">
         ${items.map(p => {
           const pr = store.progress[p.id], st = status(pr);
           const label = st === 'solved' ? T.status.solved(pr.score) : T.status[st];
+          const badge = p.fecha === t ? `<span class="badge">${esc(T.todayBadge)}</span>`
+            : p.fecha > t ? `<span class="badge badge-future">${esc(T.tools.upcoming)}</span>` : '';
           return `<li><a class="arch-item st-${st}" href="${href(lang, 'puzzle', p.id)}">
-            <span class="arch-date">${esc(fmtShort(p.fecha, lang))}${p.fecha === t ? `<span class="badge">${esc(T.todayBadge)}</span>` : ''}</span>
-            <span class="arch-clue">${esc(p.pista)} <span class="enum">(${enumStr(p.respuesta)})</span></span>
+            <span class="arch-date">${esc(fmtShort(p.fecha, lang))}${badge}</span>
+            <span class="arch-clue">${esc(p.pista)} <span class="enum">(${enumStr(p.respuesta)})</span> ${levelTag(p, T)}</span>
             <span class="arch-status">${esc(label)}</span>
           </a></li>`;
         }).join('')}
-      </ol>`;
+      </ol>
+      <section class="tools">
+        <h2 class="h-small">${esc(T.tools.title)}</h2>
+        <div class="tools-row">
+          <a class="btn ghost sm" href="${esc(testURL(!TEST_MODE))}">${esc(TEST_MODE ? T.tools.testOff : T.tools.testOn)}</a>
+          <button type="button" class="btn ghost sm danger" id="reset">${esc(T.tools.reset)}</button>
+        </div>
+        <p class="msg" id="tools-msg" aria-live="polite"></p>
+      </section>`;
+
+    // El cambio de ?pruebas recarga la página (cambia la dirección, no solo el #)
+    $('#reset').addEventListener('click', () => {
+      if (!window.confirm(T.tools.resetConfirm)) return;
+      store.progress = {};
+      save();
+      route(true);
+      const m = $('#tools-msg');
+      if (m) { m.textContent = T.tools.resetDone; m.className = 'msg ok'; }
+    });
   }
 
   function scoringHTML(T) {
@@ -245,6 +271,7 @@
     app.innerHTML = `
       ${headHTML}
       <div class="clue-card">
+        ${levelTag(p, T)}
         <p class="clue" id="clue">${clueHTML(p.pista, p)} <span class="enum">(${enumStr(p.respuesta)})</span></p>
         <div class="legend" id="legend" hidden>${ROLES.map(r => `<span class="tag tag-${r}">${esc(T.roles[r])}</span>`).join('')}</div>
       </div>

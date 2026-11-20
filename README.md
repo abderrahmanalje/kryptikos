@@ -45,10 +45,20 @@ Añade un objeto al final de `data/puzzles-es.js` o `data/puzzles-ca.js` (el for
 - Los de fecha futura no se ven hasta su día, así que puedes programarlos con antelación.
 - `definicion`, `indicador` y `material` deben ser trozos **literales** de la pista. Si alguno no se encuentra, aparece un aviso en la consola del navegador.
 - No cambies el `id` de un críptico ya publicado: el progreso se guarda con él.
+- `dificultad`: `facil`, `dificil` o `ultra`. Se muestra como etiqueta en la pista y en el archivo.
+
+## Probar y empezar de cero
+
+Al final del **Archivo** hay dos herramientas:
+
+- **Modo pruebas**: muestra también los crípticos de días futuros. Equivale a añadir `?pruebas` a la dirección, por ejemplo `https://abderrahmanalje.github.io/kryptikos/?pruebas#/es/archivo`.
+- **Borrar mi progreso**: borra puntos, rachas y respuestas de los dos idiomas en ese navegador.
+
+Para comprobar los crípticos tras editarlos (que cada trozo resaltado esté en la pista, que los anagramas cuadren…), en la consola del navegador no debe aparecer ningún aviso `[kryptikós]`.
 
 ## Al publicar cambios
 
-En `index.html` los archivos llevan un número de versión (`app.js?v=3`). Súbelo (`?v=4`, `?v=5`…) cada vez que publiques cambios, para que los navegadores descarguen la versión nueva en lugar de usar la que tienen guardada.
+En `index.html` los archivos llevan un número de versión (`app.js?v=4`). Súbelo (`?v=5`, `?v=6`…) cada vez que publiques cambios, para que los navegadores descarguen la versión nueva en lugar de usar la que tienen guardada.
 
 ## Puntuación
 
